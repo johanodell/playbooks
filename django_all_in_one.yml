@@ -48,3 +48,8 @@
     command: /usr/bin/postgresql-setup --initdb
     args:
       creates: /var/lib/pgsql/data/postgresql.conf
+
+  - name: Start service postgresql, if not started
+    service:
+      name: postgresql
+      state: started
