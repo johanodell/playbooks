@@ -63,3 +63,10 @@
       name: "{{ db_name }}"
     become: yes
     become_user: postgres
+
+  - name: Create db user user, and grant access to database
+    postgresql_user:
+      db: "{{ db_name }}"
+      name: "{{ db_user }}"
+      password: "{{ db_pass }}"
+      priv: "ALL"
