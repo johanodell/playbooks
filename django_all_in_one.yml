@@ -40,5 +40,6 @@
     become_user: "{{ appuser }}"
 
   - name: Install PostgreSQL
-    package: postgresql-server
-    state: present
+    package:
+      name: postgresql-server
+      state: present
