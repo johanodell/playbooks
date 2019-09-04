@@ -5,13 +5,14 @@
     appgroup: djangotest
 
   tasks:
-  - name: Install Python36 and python virtualenv
+  - name: Install Python36, python virtualenv and python3-psycopg2
     package:
       name: "{{ item }}"
       state: present
     with_items:
       - python36
       - python3-virtualenv
+      - python3-psycopg2
 
   - name: Add the system group for the application
     group:
@@ -33,11 +34,7 @@
 
   - name: Install django, gunicorn, and psycopg2
     pip:
-      name: "{{ item }}"
+      name: django, gunicorn
       virtualenv: "/srv/{{ appuser }}/venv"
     become: yes
     become_user: "{{ appuser }}"
-    with_items:
-      - django
-      - gunicorn
-      - psycopg2
