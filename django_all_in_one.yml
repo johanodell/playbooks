@@ -7,12 +7,12 @@
   tasks:
   - name: Install Python36 and python virtualenv
     package:
-      name:
+      name: "{{ item }}"
       state: present
     with_items:
       - python36
       - python3-virtualenv
-       
+
   - name: Add the system group for the application
     group:
       name: "{{ appgroup }}"
