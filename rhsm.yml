@@ -3,5 +3,7 @@
   vars:
 
   tasks:
-  - include_role:
-      name: ansible-role-rhsm
+  #- include_role:
+  #    name: ansible-role-rhsm
+  - name: ping test
+    ping
