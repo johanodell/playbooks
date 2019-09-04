@@ -38,3 +38,7 @@
       virtualenv: "/srv/{{ appuser }}/venv"
     become: yes
     become_user: "{{ appuser }}"
+
+  - name: Install PostgreSQL
+    package: postgresql-server
+    state: present
