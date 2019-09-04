@@ -6,4 +6,4 @@
   #- include_role:
   #    name: ansible-role-rhsm
   - name: ping test
-    ping
+    ping:
