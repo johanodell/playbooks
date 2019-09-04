@@ -61,4 +61,5 @@
   - name: Create a new database with name "acme"
     postgresql_db:
       name: "{{ db_name }}"
-      
+    become: yes
+    become_user: postgres
