@@ -30,3 +30,14 @@
       mode: '0755'
       owner: "{{ appuser }}"
       group: "{{ appgroup }}"
+
+  - name: Install django, gunicorn, and psycopg2
+    pip:
+      name: "{{ item }}"
+      virtualenv: "/srv/{{ appuser }}/venv"
+    become: yes
+    become_user: "{{ appuser }}"
+    with_items:
+      - django
+      - gunicorn
+      - psycopg2
