@@ -1,0 +1,19 @@
+- name: Setup Django, Nginx, Gunicorn, and PostgreSQL to serve an application
+  hosts: all
+  vars:
+    appuser: djangotest
+    appgroup: djangotest
+
+  tasks:
+  - name: Add the system user for the application
+    user:
+      name: "{{ appuser }}"
+      group: "{{ appgroup }}"
+
+  - name: Create a directory if it does not exist
+    file:
+      path: ""/srv/{{ appuser }}"
+      state: directory
+      mode: '0755'
+      owner: "{{ appuser }}"
+      group: "{{ appgroup }}"
