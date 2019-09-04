@@ -5,6 +5,11 @@
     appgroup: djangotest
 
   tasks:
+  - name: Add the system group for the application
+    group:
+      name: "{{ appgroup }}"
+      state: present
+      
   - name: Add the system user for the application
     user:
       name: "{{ appuser }}"
