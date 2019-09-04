@@ -43,3 +43,8 @@
     package:
       name: postgresql-server
       state: present
+
+  - name: init PostgreSQL DB
+    command: /usr/bin/postgresql-setup --initdb
+    args:
+      creates: /var/lib/pgsql/data/postgresql.conf
