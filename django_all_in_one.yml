@@ -70,3 +70,5 @@
       name: "{{ db_user }}"
       password: "{{ db_pass }}"
       priv: "ALL"
+    become: yes
+    become_user: postgres
