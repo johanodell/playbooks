@@ -24,8 +24,6 @@
       path: "{{ base_dir }}"
       state: directory
       mode: '0755'
-      owner: "{{ appuser }}"
-      group: "{{ appgroup }}"
 
   - name: Add the system group for the application
     group:
