@@ -1,6 +1,7 @@
 - name: Setup Django, Nginx, Gunicorn, and PostgreSQL to serve an application
   hosts: all
   vars:
+    base_dir: /srv
     appuser: djangotest
     appgroup: djangotest
     application: djangotest
@@ -18,6 +19,14 @@
       - python3-virtualenv
       - python3-psycopg2
 
+  - name: Create base directory if it does not exist
+    file:
+      path: "{{ base_dir }}"
+      state: directory
+      mode: '0755'
+      owner: "{{ appuser }}"
+      group: "{{ appgroup }}"
+
   - name: Add the system group for the application
     group:
       name: "{{ appgroup }}"
@@ -27,19 +36,12 @@
     user:
       name: "{{ appuser }}"
       group: "{{ appgroup }}"
-
-  - name: Create a directory if it does not exist
-    file:
-      path: "/srv/{{ appuser }}"
-      state: directory
-      mode: '0755'
-      owner: "{{ appuser }}"
-      group: "{{ appgroup }}"
+      home: "{{ base_dir }}/{{ appuser }}"
 
   - name: Install django, gunicorn, and psycopg2
     pip:
       name: django, gunicorn
-      virtualenv: "/srv/{{ appuser }}/venv"
+      virtualenv: "{{ base_dir }}/{{ appuser }}/venv"
       virtualenv_site_packages: yes
     become: yes
     become_user: "{{ appuser }}"
@@ -59,7 +61,7 @@
       name: postgresql
       state: started
 
-  - name: Create a new database with name "acme"
+  - name: Create a new database with name "{{ db_name }}"
     postgresql_db:
       name: "{{ db_name }}"
     become: yes
@@ -73,3 +75,12 @@
       priv: "ALL"
     become: yes
     become_user: postgres
+
+  - name: Allow remote access to db
+    postgresql_pg_hba:
+      dest: /var/lib/pgsql/data/pg_hba.conf
+      contype: host
+      users: all
+      source: all
+      databases: "{{ db_name }}"
+      method: md5
