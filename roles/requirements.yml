@@ -2,4 +2,8 @@
   scm: git
 - src: https://github.com/pgustafs/ansible-role-openscap.git
   scm: git
+- src: https://github.com/pgustafs/ansible-role-postgresql.git
+  scm: git
+- src: https://github.com/pgustafs/ansible-role-rh-demo-web-app.git
+  scm: git
 - redhatinsights.insights-client

@@ -1,84 +1,24 @@
 - name: Setup Django, Nginx, Gunicorn, and PostgreSQL to serve an application
   hosts: all
   vars:
-    base_dir: /srv
-    appuser: djangotest
-    appgroup: djangotest
-    application: djangotest
-    db_name: django
-    db_user: django
-    db_pass: django123
-
+    db_name: rhdemo
+    db_user: rhdemo
+    db_pass: rhdemo123
+    db_host: 127.0.0.1
+    release: master
   tasks:
-  - name: Install Python36, python virtualenv and python3-psycopg2
-    package:
-      name: "{{ item }}"
-      state: present
-    with_items:
-      - python36
-      - python3-virtualenv
-      - python3-psycopg2
+  - include_role:
+      name: ansible-role-postgresql
+    vars:
+      postgresql_db_name: "{{ db_name }}"
+      postgresql_db_user: "{{ db_user }}"
+      postgresql_db_pass: "{{ db_pass }}"
 
-  - name: Create base directory if it does not exist
-    file:
-      path: "{{ base_dir }}"
-      state: directory
-      mode: '0755'
-
-  - name: Add the system group for the application
-    group:
-      name: "{{ appgroup }}"
-      state: present
-
-  - name: Add the system user for the application
-    user:
-      name: "{{ appuser }}"
-      group: "{{ appgroup }}"
-      home: "{{ base_dir }}/{{ appuser }}"
-
-  - name: Install django, gunicorn, and psycopg2
-    pip:
-      name: django, gunicorn
-      virtualenv: "{{ base_dir }}/{{ appuser }}/venv"
-      virtualenv_site_packages: yes
-    become: yes
-    become_user: "{{ appuser }}"
-
-  - name: Install PostgreSQL
-    package:
-      name: postgresql-server
-      state: present
-
-  - name: init PostgreSQL DB
-    command: /usr/bin/postgresql-setup --initdb
-    args:
-      creates: /var/lib/pgsql/data/postgresql.conf
-
-  - name: Start service postgresql, if not started
-    service:
-      name: postgresql
-      state: started
-
-  - name: Create a new database with name "{{ db_name }}"
-    postgresql_db:
-      name: "{{ db_name }}"
-    become: yes
-    become_user: postgres
-
-  - name: Create db user user, and grant access to database
-    postgresql_user:
-      db: "{{ db_name }}"
-      name: "{{ db_user }}"
-      password: "{{ db_pass }}"
-      priv: "ALL"
-    become: yes
-    become_user: postgres
-
-  - name: Allow remote access to db
-    postgresql_pg_hba:
-      dest: /var/lib/pgsql/data/pg_hba.conf
-      contype: host
-      users: all
-      source: 0.0.0.0/0
-      databases: "{{ db_name }}"
-      method: md5
+  - include_role:
+      name: ansible-role-rh-demo-web-app
+    vars:
+      rh_demo_web_app_release: "{{ release }}"
+      rh_demo_web_app_db: "{{ db_name }}"
+      rh_demo_web_app_db_host: "{{ db_host }}"
+      rh_demo_web_app_db_user: "{{ db_user }}"
+      rh_demo_web_app_db_pass: "{{ db_pass }}"
