@@ -79,6 +79,6 @@
       dest: /var/lib/pgsql/data/pg_hba.conf
       contype: host
       users: all
-      source: all
+      source: 0.0.0.0/0
       databases: "{{ db_name }}"
       method: md5
