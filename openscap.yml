@@ -1,7 +1,9 @@
-- name: Subscribe to RHSM and enable repos
+- name: Execute scap scan and upload result to cloud.redhat.com
   hosts: all
   vars:
+    openscap_upload: true
+    openscap_remediate: false
 
   tasks:
   - include_role:
-      name: ansible-role-rhsm
+      name: ansible-role-openscap
