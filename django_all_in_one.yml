@@ -1,5 +1,6 @@
 - name: Setup Django, Nginx, Gunicorn, and PostgreSQL to serve an application
   hosts: all
+  become: true
   vars:
     db_name: rhdemo
     db_user: rhdemo

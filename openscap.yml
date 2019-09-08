@@ -1,5 +1,6 @@
 - name: Execute scap scan and upload result to cloud.redhat.com
   hosts: all
+  become: true
   vars:
     openscap_upload: true
     openscap_remediate: false

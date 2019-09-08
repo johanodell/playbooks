@@ -1,5 +1,6 @@
 - name: Subscribe to RHSM and enable repos
   hosts: all
+  become: true
   vars:
 
   tasks:
