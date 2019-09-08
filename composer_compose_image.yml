@@ -13,3 +13,7 @@
   - name: DISPLAY THE COMMAND OUTPUT
     debug:
       var: command_result
+
+  - name: DISPLAY THE HOSTNAME
+    debug:
+      msg: "uuid is {{ command_result.stdout[1] }}"
