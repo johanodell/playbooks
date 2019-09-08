@@ -1,0 +1,7 @@
+- name: Subscribe to RHSM and enable repos
+  hosts: all
+  vars:
+
+  tasks:
+  - include_role:
+      name: ansible-role-rhsm
