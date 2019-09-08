@@ -1,0 +1,15 @@
+- name: Build new Image
+  hosts: all
+  become: true
+  vars:
+    openscap_upload: true
+    openscap_remediate: false
+
+  tasks:
+  - name: compose new image
+    command: composer-cli compose start azure-rhel8-golden-image vhd
+    register: command_result
+
+  - name: DISPLAY THE COMMAND OUTPUT
+    debug:
+      var: command_result
