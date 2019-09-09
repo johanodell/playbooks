@@ -16,4 +16,4 @@
 
   - name: DISPLAY THE HOSTNAME
     debug:
-      msg: "uuid is {{ command_result.stdout.split(" ")[1] }}"
+      msg: "uuid is {{ command_result.stdout.split()[1] }}"
