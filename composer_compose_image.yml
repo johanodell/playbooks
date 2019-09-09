@@ -10,10 +10,17 @@
     command: composer-cli compose start azure-rhel8-golden-image vhd
     register: command_result
 
-  - name: DISPLAY THE COMMAND OUTPUT
+  - name: display the command output
     debug:
       var: command_result
 
-  - name: DISPLAY THE HOSTNAME
+  - name: display the image uuid
     debug:
       msg: "uuid is {{ command_result.stdout.split()[1] }}"
+
+  - name: wait on image build to complete
+    command: composer-cli compose info {{ command_result.stdout.split()[1] }} | head -1 | awk '{print $2}'
+    register: build
+    until: build.stdout.find("FINISHED") != -1
+    retries: 100
+    delay: 5
