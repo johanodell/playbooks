@@ -6,7 +6,7 @@
   tasks:
   - name: Get DB hosts
     set_fact:
-      rh_demo_web_app_db_host: "{{ db_public_ip }}"
+      rh_demo_web_app_db_host: "{{ db_public_ips }}"
 
   - include_role:
       name: ansible-role-rh-demo-web-app
