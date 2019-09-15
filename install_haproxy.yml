@@ -1,8 +1,11 @@
-- name: Setup Django, Nginx, Gunicorn, and PostgreSQL to serve an application
+- name: Setup haproxy
   hosts: all
   become: true
   vars:
 
   tasks:
   - include_role:
-      name: ansible-role-postgresql
+      name: ansible-role-haproxy
+    vars:
+      haproxy_backend_servers: "{{ web_public_ip }}"
+      haproxy_backend_port: 80

@@ -6,6 +6,3 @@
   tasks:
   - include_role:
       name: ansible-role-postgresql
-    vars:
-      haproxy_backend_servers: "{{ web_public_ip }}"
-      haproxy_backend_port: 80
