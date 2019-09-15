@@ -4,6 +4,9 @@
   vars:
 
   tasks:
+  - name: Get DB hosts
+    set_fact:
+      rh_demo_web_app_db_host: "{{ db_public_ip }}"
+
   - include_role:
       name: ansible-role-rh-demo-web-app
-    
