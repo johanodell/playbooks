@@ -1,5 +1,5 @@
 - name: Setup haproxy
-  hosts: web
+  hosts: all
   serial: 1
   become: true
   vars:
