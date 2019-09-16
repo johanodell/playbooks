@@ -1,0 +1,44 @@
+- name: Setup haproxy
+  hosts: web
+  serial: 1
+  become: true
+  vars:
+
+  tasks:
+  - name: disable {{ inventory_hostname }} in haproxy
+    haproxy:
+      state: disabled
+      backend: app
+      host: "{{ inventory_hostname }}"
+      socket: /var/lib/haproxy/stats
+    delegate_to: "{{ item }}"
+    with_items: "{{ query('inventory_hostnames', 'lb') }}"
+
+  - name: stop nginx service
+    service:
+      name: nginx
+      state: stopped
+
+  - name: stop gunicorn service
+    service:
+      name: gunicorn
+      state: stopped
+
+  - name: start gunicorn service
+    service:
+      name: gunicorn
+      state: started
+
+  - name: start nginx service
+    service:
+      name: nginx
+      state: started
+
+  - name: enable {{ inventory_hostname }} in haproxy
+    haproxy:
+      state: enabled
+      backend: app
+      host: "{{ inventory_hostname }}"
+      socket: /var/lib/haproxy/stats
+    delegate_to: "{{ item }}"
+    with_items: "{{ query('inventory_hostnames', 'lb') }}"
