@@ -9,3 +9,5 @@
 - src: https://github.com/pgustafs/ansible-role-haproxy.git
   scm: git
 - redhatinsights.insights-client
+- geerlingguy.java
+- geerlingguy.jenkins

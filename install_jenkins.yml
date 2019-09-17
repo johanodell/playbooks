@@ -1,0 +1,10 @@
+- name: install jenkins
+  hosts: all
+  become: true
+  vars:
+
+  roles:
+    - role: geerlingguy.java
+      become: yes
+    - role: geerlingguy.jenkins
+      become: yes
