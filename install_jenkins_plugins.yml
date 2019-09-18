@@ -9,4 +9,3 @@
     jenkins_plugin:
       name: ansible-tower
       version: "0.9.2"
-      url: "http://localhost:8080"
