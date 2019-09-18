@@ -2,6 +2,9 @@
   hosts: all
   become: true
   vars:
+    my_jenkins_params:
+      url_username: admin
+      url_password: admin
 
 
   tasks:
@@ -9,3 +12,4 @@
     jenkins_plugin:
       name: ansible-tower
       version: "0.9.2"
+      params: "{{ my_jenkins_params }}"
