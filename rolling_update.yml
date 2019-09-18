@@ -37,13 +37,13 @@
     become: yes
     become_user: "{{ rh_demo_web_app_appuser }}"
 
-  - name: Add Django local settings file
-    template:
-      src: local_settings.py.j2
-      dest: "{{ projectdir }}/{{ rh_demo_web_app_name }}/local_settings.py"
-      owner: "{{ rh_demo_web_app_appuser }}"
-      group: "{{ rh_demo_web_app_appgroup }}"
-      mode: '0640'
+  #- name: Add Django local settings file
+  #  template:
+  #    src: local_settings.py.j2
+  #    dest: "{{ projectdir }}/{{ rh_demo_web_app_name }}/local_settings.py"
+  #    owner: "{{ rh_demo_web_app_appuser }}"
+  #    group: "{{ rh_demo_web_app_appgroup }}"
+  #    mode: '0640'
 
   - name: Set static files location
     lineinfile:
