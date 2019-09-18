@@ -24,6 +24,49 @@
       name: gunicorn
       state: stopped
 
+  - name: Set django project directory, (where manage.py lives)
+    set_fact:
+      projectdir: "{{ rh_demo_web_app_base_dir }}/{{ rh_demo_web_app_appuser }}/{{ rh_demo_web_app_name }}"
+
+  - name: Deploy web application
+    git:
+      repo: "{{ rh_demo_web_app_git_repo }}"
+      dest: "{{ projectdir }}"
+      version: "{{ rh_demo_web_app_release }}"
+      force: yes
+    become: yes
+    become_user: "{{ rh_demo_web_app_appuser }}"
+
+  - name: Add Django local settings file
+    template:
+      src: local_settings.py.j2
+      dest: "{{ projectdir }}/{{ rh_demo_web_app_name }}/local_settings.py"
+      owner: "{{ rh_demo_web_app_appuser }}"
+      group: "{{ rh_demo_web_app_appgroup }}"
+      mode: '0640'
+
+  - name: Set static files location
+    lineinfile:
+      path: "{{ projectdir }}/{{ rh_demo_web_app_name }}/settings.py"
+      regexp: '^STATIC_ROOT '
+      insertafter: "STATIC_URL = '/static/'"
+      line: "STATIC_ROOT = os.path.join(BASE_DIR, 'static/')"
+
+  - name: Updates database schema
+    django_manage:
+      command: migrate
+      app_path: "{{ projectdir }}"
+      virtualenv: "{{ rh_demo_web_app_base_dir }}/{{ rh_demo_web_app_appuser }}/venv"
+    run_once: true
+
+  - name: Collect static files
+    django_manage:
+      command: "collectstatic --noinput"
+      app_path: "{{ projectdir }}"
+      virtualenv: "{{ rh_demo_web_app_base_dir }}/{{ rh_demo_web_app_appuser }}/venv"
+    become: yes
+    become_user: "{{ rh_demo_web_app_appuser }}"
+
   - name: start gunicorn service
     service:
       name: gunicorn
