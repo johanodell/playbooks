@@ -14,3 +14,17 @@
       version: "0.9.2"
       url_username: admin
       url_password: admin
+
+  - name: Install plugin
+    jenkins_plugin:
+      name: credentials
+      version: "1.22"
+      url_username: admin
+      url_password: admin
+
+  - name: Install plugin
+    jenkins_plugin:
+      name: script-security
+      version: "1.17"
+      url_username: admin
+      url_password: admin
