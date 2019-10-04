@@ -1,0 +1,8 @@
+- name: Enable system in nagios
+  hosts: all
+  become: true
+  vars:
+
+  tasks:
+  - name: Enable system in nagios
+    ping:

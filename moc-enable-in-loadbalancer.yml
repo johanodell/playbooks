@@ -1,0 +1,8 @@
+- name: add load to the system
+  hosts: all
+  become: true
+  vars:
+
+  tasks:
+  - name: enable system in loadbalancer
+    ping:

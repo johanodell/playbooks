@@ -1,0 +1,8 @@
+- name: remove load from the system
+  hosts: all
+  become: true
+  vars:
+
+  tasks:
+  - name: disable system in loadbalancer
+    ping: 

@@ -1,0 +1,8 @@
+- name: Disable system in nagios
+  hosts: all
+  become: true
+  vars:
+
+  tasks:
+  - name: Disable system in nagios
+    ping:
