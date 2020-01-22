@@ -1,5 +1,5 @@
 ---
-- name: Install and configure chronyd
+- name: Create user
   hosts: all
   vars:
     user_name:
@@ -8,6 +8,7 @@
   - name: Create user
     win_user:
       name: "{{ user_name }}"
+      password: "{{ user_password }}"
       state: present
       groups:
         - Users
