@@ -1,0 +1,3 @@
+- name: Ta fram ledigt hostnamn
+  hosts: all
+  become: true
