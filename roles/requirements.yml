@@ -1,12 +1,12 @@
-- src: https://github.com/pgustafs/ansible-role-rhsm.git
+- src: https://github.com/johanodell/ansible-role-rhsm.git
   scm: git
-- src: https://github.com/pgustafs/ansible-role-openscap.git
+- src: https://github.com/johanodell/ansible-role-openscap.git
   scm: git
-- src: https://github.com/pgustafs/ansible-role-postgresql.git
+- src: https://github.com/johanodell/ansible-role-postgresql.git
   scm: git
-- src: https://github.com/pgustafs/ansible-role-rh-demo-web-app.git
+- src: https://github.com/johanodell/ansible-role-rh-demo-web-app
   scm: git
-- src: https://github.com/pgustafs/ansible-role-haproxy.git
+- src: https://github.com/johanodell/ansible-role-haproxy.git
   scm: git
 - redhatinsights.insights-client
 - geerlingguy.java
