@@ -8,6 +8,6 @@
   scm: git
 - src: https://github.com/johanodell/ansible-role-haproxy.git
   scm: git
-- redhatinsights.insights-client
-- geerlingguy.java
-- geerlingguy.jenkins
+#- redhatinsights.insights-client
+#- geerlingguy.java
+#- geerlingguy.jenkins
